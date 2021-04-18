@@ -2,11 +2,13 @@ import styled from "styled-components";
 
 export const ScreenWrapper = styled.div`
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
   flex-direction: column;
   width: 100%;
   max-width: 400px;
+  margin-top: 20px;
+  padding: 5px;
 `;
 
 export const ReaderBoard = styled.div`
@@ -16,6 +18,7 @@ export const ReaderBoard = styled.div`
   font-size: 30px;
   height: 200px;
   width: 300px;
+  position: relative;
 `;
 
 export const Buttons = styled.div`
@@ -27,7 +30,13 @@ export const Buttons = styled.div`
 `;
 
 export const Progress = styled.div`
+  position: absolute;
+  bottom: 0;
   width: 100%;
   text-align: center;
-  margin: 5px 0;
+`;
+
+export const ProgressSlider = styled.div`
+  width: 100%;
+  text-align: center;
 `;

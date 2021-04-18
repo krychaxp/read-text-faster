@@ -2,7 +2,13 @@ import { useState, useEffect, useMemo } from "react";
 import { MdPause, MdPlayArrow } from "react-icons/md";
 import { FaSquare } from "react-icons/fa";
 import { Fab, Tooltip, LinearProgress, Paper, Slider } from "@material-ui/core";
-import { ScreenWrapper, ReaderBoard, Buttons, Progress } from "./index.styles";
+import {
+  ScreenWrapper,
+  ReaderBoard,
+  Buttons,
+  Progress,
+  ProgressSlider,
+} from "./index.styles";
 
 export const Board = ({ textArray }) => {
   const [isPlayed, setIsPlayed] = useState(false);
@@ -39,13 +45,18 @@ export const Board = ({ textArray }) => {
       setIsPlayed(false);
     }
   }, [progessValue]);
-  console.log("rerender");
+
   const title = useMemo(() => (isPlayed ? "Stop" : "Strart"), [isPlayed]);
 
   return (
     <ScreenWrapper>
       <Paper elevation={7}>
-        <ReaderBoard>{textArray[currentPosition]}</ReaderBoard>
+        <ReaderBoard>
+          {textArray[currentPosition]}
+          <Progress>
+            <LinearProgress variant="determinate" value={progessValue} />
+          </Progress>
+        </ReaderBoard>
       </Paper>
 
       <Buttons>
@@ -68,12 +79,8 @@ export const Board = ({ textArray }) => {
           </Fab>
         </Tooltip>
       </Buttons>
-      <Progress>
-        Progress:
-        <LinearProgress variant="determinate" value={progessValue} />
-      </Progress>
 
-      <Progress>
+      <ProgressSlider>
         Words per minute:
         <Slider
           defaultValue={100}
@@ -86,7 +93,7 @@ export const Board = ({ textArray }) => {
             setSpeed(value);
           }}
         />
-      </Progress>
+      </ProgressSlider>
     </ScreenWrapper>
   );
 };
