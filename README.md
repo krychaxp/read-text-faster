@@ -1,3 +1,3 @@
 ## Demo
 
-[http://rtf.krychaxp.pl/](http://rtf.krychaxp.pl/)
+[https://read-text-faster.netlify.app/](https://read-text-faster.netlify.app/)
