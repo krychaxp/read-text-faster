@@ -22,7 +22,7 @@ export const TextForm = ({ setTextArray }) => {
           </Fab>
         </Tooltip>
       </MenuButton>
-      <TextareaWrapper isVisible={isVisible}>
+      <TextareaWrapper data-isvisible={isVisible}>
         <textarea value={text} onChange={(e) => setText(e.target.value)} placeholder="Write some text ..."/>
       </TextareaWrapper>
     </>

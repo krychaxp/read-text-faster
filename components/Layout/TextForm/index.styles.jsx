@@ -18,9 +18,13 @@ export const TextareaWrapper = styled.div`
   background-color: white;
   box-shadow: 0 0 0 30px rgba(0, 0, 0, 0.5);
   z-index: 5;
-  visibility: ${({ isVisible }) => (isVisible ? "visible" : "hidden")};
   transition: 0.3s;
-  opacity: ${({ isVisible }) => +isVisible};
+  opacity: 0;
+  visibility: hidden;
+  &[data-isvisible="true"] {
+    opacity: 1;
+    visibility: visible;
+  }
   & > textarea {
     width: 100%;
     height: 100%;

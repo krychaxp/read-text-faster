@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { MdPause, MdPlayArrow } from "react-icons/md";
 import { FaSquare } from "react-icons/fa";
 import { Fab, Tooltip, LinearProgress, Paper, Slider } from "@material-ui/core";
@@ -16,6 +16,9 @@ export const Board = ({ textArray }) => {
   const [speed, setSpeed] = useState(100);
 
   const handlePlay = () => {
+    if (currentPosition >= textArray.length) {
+      return;
+    }
     setIsPlayed((v) => !v);
   };
 
@@ -25,26 +28,27 @@ export const Board = ({ textArray }) => {
   };
 
   useEffect(() => {
-    if (isPlayed) {
-      const timer = setInterval(() => {
-        setCurrentPosition((v) => v + 1);
-      }, 60000 / speed);
-      return () => {
-        clearInterval(timer);
-      };
-    }
+    if (!isPlayed) return;
+
+    const timer = setInterval(() => {
+      setCurrentPosition((v) => v + 1);
+    }, 60_000 / speed);
+
+    return () => {
+      clearInterval(timer);
+    };
   }, [isPlayed, speed]);
 
   const progessValue = useMemo(
-    () => (currentPosition / (textArray.length || 1)) * 100,
+    () => (textArray.length ? (currentPosition / textArray.length) * 100 : 0),
     [textArray, currentPosition]
   );
 
   useEffect(() => {
-    if (progessValue >= 100) {
+    if (currentPosition >= textArray.length) {
       setIsPlayed(false);
     }
-  }, [progessValue]);
+  }, [currentPosition, textArray]);
 
   const title = useMemo(() => (isPlayed ? "Stop" : "Strart"), [isPlayed]);
 
@@ -81,7 +85,7 @@ export const Board = ({ textArray }) => {
       </Buttons>
 
       <ProgressSlider>
-        Words per minute:
+        Words per minute: {speed}
         <Slider
           defaultValue={100}
           valueLabelDisplay="auto"
